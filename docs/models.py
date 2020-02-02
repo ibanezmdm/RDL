@@ -72,20 +72,18 @@ class Reporte(models.Model):
 	)
 
 	nombre = models.CharField(max_length=50)
-	prioridad = models.IntegerChoices(
-		choices=PRIORIDAD, 
+	prioridad = models.IntegerField(
+		choices=PRIORIDAD,
 		default=MEDIA
 	)
 	solicitante = models.ForeignKey(Solicitante, on_delete=models.PROTECT)
 	responsable = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
 	dias = models.ManyToManyField(
 		Dia,
-		through='DiaActualizacion',
-		through_fields=('dia', 'reporte'),
 		verbose_name="dias de actualización"
 	)
 	hora_actualizacion = models.TimeField(verbose_name="hora de actualización")
-	repeticion = models.SmallIntegerField(null=True, verbose_name="tiempo de repetición")
+	repeticion = models.SmallIntegerField(verbose_name="tiempo de repetición (hrs)", null=True, blank=True)
 	servidor = models.ForeignKey(Servidor, on_delete=models.PROTECT)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
@@ -98,18 +96,11 @@ class Reporte(models.Model):
 		return '%s (%s)'% (self.nombre, self.solicitante)
 
 
-class DiaActualizacion(models.Model):
-	dia = models.ForeignKey(Dia, on_delete = models.CASCADE)
-	reporte = models.ForeignKey(Reporte, on_delete = models.CASCADE)
-	created_at = models.DateTimeField(auto_now_add=True)
-	updated_at = models.DateTimeField(auto_now=True)
-
-	class Meta():
-		unique_together = ['dia', 'reporte']
-
-
 class TipoPaso(models.Model):
 	tipo = models.CharField(max_length = 50, verbose_name = "tipo de paso")
+
+	def __str__(self):
+		return '%s'% (self.tipo)
 
 
 class Paso(models.Model):
