@@ -1,0 +1,11 @@
+<h1>Reportes</h1>
+
+{% if reporte_list %}
+    <ul>
+    {% for reporte in reporte_list %}
+        <li><a href="{% url 'docs:reporte' reporte.id %}">{{ reporte.nombre }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay reportes registrados</p>
+{% endif %}

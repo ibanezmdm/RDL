@@ -1,0 +1,17 @@
+<h1>{{ reporte }}</h1>
+
+{% if error_message %}<p><strong> {{ error_message }} </strong></p>{% endif %}
+
+<ul><strong>Pasos</strong>
+	{% for paso in reporte.paso_set.all %}
+	<li>{{ paso }}
+		<ul> <strong> Requisitos de paso </strong>
+			{% for requisito in paso.requisitopaso_set.all %}
+				<li> {{ requisito }} </li>
+			{% endfor %}
+		</ul>
+	</li>
+	{% endfor %}
+</ul>
+
+<a href="{% url 'docs:index' %}">Atrás</a>
