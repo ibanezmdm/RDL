@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'docs.apps.DocsConfig',
+    'AdminLTE3.apps.Adminlte3Config',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
