@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    {% block title_outer %}
+    <title> {% block title %} {{ site.name }} {% endblock title %} </title>
+    {% endblock title_outer %}
+
+    {% block css %}
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'a_dist/css/adminlte.min.css' %}">
+    <!-- Google Font: Source Sans Pro -->
+    {% block extra_css %}  {% endblock extra_css %}
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    {% endblock css %}
+
+  </head>
+  <body 
+    {% block body_class %} class="hold-transition layout-top-nav" {% endblock body_class %} 
+    {% block body_style %} style="height: auto;" {% endblock body_style %}>
+    <div class="wrapper">
+
+      <!-- Navbar -->
+      <nav {% block navbar_class %} class="main-header navbar navbar-expand-md navbar-dark" {% endblock navbar_class %} >
+      {% block navbar %}
+        <div class="container">
+
+          {% block navbar_brad %}
+          <span class="navbar-brand">
+            <img src="{% static 'img/Tottus.png' %}" alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
+          </span>
+          {% endblock navbar_brad %}
+
+          <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+            {% block navbar_left_links %}
+              <li class="nav-item">
+                <a href=" {% url 'docs:index' %} " class="nav-link">Home</a>
+              </li>
+            {% endblock navbar_left_links %}
+            </ul>
+          </div>
+
+          <!-- Right navbar links -->
+          <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+          {% block navbar_rigth_links %}
+          {% endblock navbar_rigth_links %}
+          </ul>
+
+        </div>
+      {% endblock navbar %}
+      </nav>
+      <!-- /.navbar -->
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0 text-dark">{% block content_title %}Titulo de contenido{% endblock content_title %}<small>{% block content_title_small %}{% endblock content_title_small %}</small>
+                </h1>
+              </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  {% block breadcrumb %}
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">Starter Page</li>
+                  {% endblock breadcrumb %}
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+          <div class="container-fluid">
+          {% block content %}
+          {% endblock content %}
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+
+      <!-- Main Footer -->
+      <footer class="main-footer">
+        <!-- To the right -->
+        {% block footer %}
+        <div class="float-right d-none d-sm-inline">
+          {% block footer_right %}
+          Gerencia Desarrollo Logistico - Gestion de Informacion
+          {% endblock footer_right %}
+        </div>
+        <!-- Default to the left -->
+        {% block footer_left %}
+        <strong>Correo de soporte: <a href="mailto:desarrollo.logistico.tottus@falabella.cl"> desarrollo.logistico.tottus@falabella.cl </a> </strong>
+        {% endblock footer_left %}
+        {% endblock footer %}
+      </footer>
+    </div>
+    <!-- ./wrapper -->
+
+  <!-- REQUIRED SCRIPTS -->
+
+  {% block js %}
+  <!-- jQuery -->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <!-- AdminLTE App -->
+  <script src="{% static 'js/adminlte.min.js' %}"></script>
+  {% block extra_js %}{% endblock extra_js %}
+  {% endblock js %}
+  </body>
+</html>
