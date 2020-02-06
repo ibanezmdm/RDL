@@ -80,10 +80,10 @@ class Reporte(models.Model):
 	responsable = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
 	dias = models.ManyToManyField(
 		Dia,
-		verbose_name="dias de actualización"
+		verbose_name="dias de actualizacion"
 	)
-	hora_actualizacion = models.TimeField(verbose_name="hora de actualización")
-	repeticion = models.SmallIntegerField(verbose_name="tiempo de repetición (hrs)", null=True, blank=True)
+	hora_actualizacion = models.TimeField(verbose_name="hora de actualizacion")
+	repeticion = models.SmallIntegerField(verbose_name="tiempo de repeticion (hrs)", null=True, blank=True)
 	servidor = models.ForeignKey(Servidor, on_delete=models.PROTECT)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
