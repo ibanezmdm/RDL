@@ -1,11 +1,92 @@
-<h1>Reportes</h1>
+{% extends 'AdminLTE3/base.html' %}
+{% load i18n static %}
 
-{% if reporte_list %}
-    <ul>
-    {% for reporte in reporte_list %}
-        <li><a href="{% url 'docs:reporte' reporte.id %}">{{ reporte.nombre }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No hay reportes registrados</p>
-{% endif %}
+{% block css %}
+	{% include 'AdminLTE3/_dataTables_css.html' %}
+{% endblock css %}
+
+{% block content_title %} Reportes {% endblock content_title %}
+{% block content_title_small %}(Lista){% endblock content_title_small %}
+
+{% block breadcrumb %} 
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-header">
+			<h3 class="card-title">Lista de Reportes</h3>
+			</div>
+			<div class="card-body">
+			{% if reporte_list %}
+			<table id="datatable" class="table table-bordered table-striped table-sm">
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>Reporte</th>
+						<th>Solicitante</th>
+						<th>Responsable</th>
+						<th>Prioridad</th>
+						<th>Servidor</th>
+						<th>Dias</th>
+						<th>Hora</th>
+						<th>Status</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for reporte in reporte_list %}
+					<tr>
+						<td> {{ reporte.id }} </td>
+						<td> <a href=" {% url 'docs:reporte' reporte.id %} "> {{ reporte.nombre }} </a> </td>
+						<td> {{ reporte.solicitante }} </td>
+						<td> {{ reporte.responsable.first_name }} {{ reporte.responsable.last_name }} </td>
+						<td> {{ reporte.get_prioridad_display }} </td>
+						<td> {{ reporte.servidor }} </td>
+						<td> {% for dia in reporte.dias.all %} {{ dia.id }} {% endfor %} </td>
+						<td> {{ reporte.hora_actualizacion}} </td>
+						<td><span class="badge badge-success">success</span></td>
+						<td> 
+							<a class="btn btn-outline-info btn-xs" href=" {% url 'docs:reporte' reporte.id %} "> <i class="fas fa-info-circle"></i> info </a>
+							<a class="btn btn-outline-warning btn-xs" href="#"> <i class="far fa-edit"></i></i> edit </a>
+						</td>
+					</tr>
+					{% comment %} <li><a href="{% url 'docs:reporte' reporte.id %}">{{ reporte.nombre }}</a></li> {% endcomment %}
+				{% endfor %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<th>id</th>
+						<th>Reporte</th>
+						<th>Solicitante</th>
+						<th>Responsable</th>
+						<th>Prioridad</th>
+						<th>Servidor</th>
+						<th>Dias</th>
+						<th>Hora</th>
+						<th>Status</th>
+						<th>Acciones</th>
+					</tr>
+				</tfoot>
+			</table>
+			{% else %}
+				<p>No hay reportes registrados</p>
+			{% endif %}
+
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+
+{% block js %}
+	{% include 'AdminLTE3/_dataTables_js.html' %}
+	<script>
+  $(document).ready(function () {
+    $('#datatable').DataTable();
+  });
+</script>
+{% endblock js %}

@@ -1,7 +1,11 @@
-<h1>{{ reporte }}</h1>
+{% extends 'AdminLTE3/base.html' %}
+
+{% block content_title %}{{ reporte.nombre }}{% endblock content_title %}
+{% block content_title_small %} ({{reporte.solicitante}}) {% endblock content_title_small %}
 
 {% if error_message %}<p><strong> {{ error_message }} </strong></p>{% endif %}
 
+{% block content %}
 <ul><strong>Pasos</strong>
 	{% for paso in reporte.paso_set.all %}
 	<li>{{ paso }}
@@ -13,5 +17,6 @@
 	</li>
 	{% endfor %}
 </ul>
-
 <a href="{% url 'docs:index' %}">Atrás</a>
+{% endblock content %}
+
